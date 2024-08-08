@@ -1,0 +1,61 @@
+CREATE DATABASE school;
+
+
+CREATE TABLE students (
+    student_id SERIAL PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name VARCHAR(50) NOT NULL,
+    birth_date DATE
+);
+
+CREATE TABLE courses (
+    course_id SERIAL PRIMARY KEY,
+    course_name VARCHAR(100) NOT NULL,
+    course_code VARCHAR(10) NOT NULL
+);
+
+CREATE TABLE enrollments (
+    enrollment_id SERIAL PRIMARY KEY,
+    student_id INT REFERENCES students(student_id),
+    course_id INT REFERENCES courses(course_id),
+    enrollment_date DATE
+);
+
+INSERT INTO students (student_id, first_name, last_name, birth_date)
+VALUES 
+(1, 'John', 'Doe', '2000-01-15'),
+(2, 'Jane', 'Smith', '1999-03-22'),
+(3, 'Alice', 'Johnson', '2001-07-30'),
+(4, 'Bob', 'Brown', '2000-12-05');
+
+INSERT INTO courses (course_id, course_name, course_code)
+VALUES 
+(1, 'Database Systems', 'CS101'),
+(2, 'Algorithms', 'CS102'),
+(3, 'Data Structures', 'CS103'),
+(4, 'Operating Systems', 'CS104');
+
+INSERT INTO enrollments (enrollment_id, student_id, course_id, enrollment_date)
+VALUES 
+(1, 1, 1, '2024-08-01'),
+(2, 1, 2, '2024-08-01'),
+(3, 2, 1, '2024-08-01'),
+(4, 3, 3, '2024-08-01'),
+(5, 4, 4, '2024-08-01'),
+(6, 4, 1, '2024-08-01');
+
+SELECT * FROM students;
+
+SELECT 
+    student_id AS "ID", 
+    first_name AS "First Name", 
+    last_name AS "Last Name", 
+    birth_date AS "Date of Birth" 
+FROM students;
+
+SELECT * 
+FROM students 
+ORDER BY last_name;
+
+SELECT DISTINCT student_id, course_id 
+FROM enrollments;
